@@ -8,7 +8,8 @@ var express     = require("express"),
     Campground  = require("./models/campground"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
-    methodOverride = require("method-override"); //TODO 干啥用的？
+    methodOverride = require("method-override"), //used for put and delete request
+    port = 8888; 
     
 //requiring routes
 var indexRoutes = require("./routers/index"),
@@ -68,6 +69,6 @@ app.use("/campgrounds/:id/comments",commentRoutes);
 
 
 
-app.listen(process.env.PORT, process.env.IP, function() {
+app.listen(8888, function() {
     console.log("The yelp server has started");
 });

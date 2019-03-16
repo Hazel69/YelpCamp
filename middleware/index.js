@@ -46,7 +46,7 @@ middlewareObj.checkCampOwnership = function (req, res, next) {
 //check whether current comment post is belonged to the user
 middlewareObj.checkCommentOwnerShip = function(req, res, next) {
     if(req.isAuthenticated()) {
-        Comment.findById(req.params.id, function(err, foundComment) {
+        Comment.findById(req.params.comment_id, function(err, foundComment) {
             if(err) {
                 res.redirect("back");
             } else {
