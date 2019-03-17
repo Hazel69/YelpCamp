@@ -9,7 +9,8 @@ var express     = require("express"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
     methodOverride = require("method-override"), //used for put and delete request
-    port = 8888; 
+    port = 8888,
+    flash = require("connect-flash"); 
     
 //requiring routes
 var indexRoutes = require("./routers/index"),
@@ -22,6 +23,7 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname+"/public"));
 app.use(methodOverride("_method"));//we will override unscore method
+app.use(flash()); //used for some pop info box, need to be used before passort
 
 
 
@@ -46,6 +48,8 @@ passport.deserializeUser(User.deserializeUser());
  //make current user 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;//used in ejs
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 })
 

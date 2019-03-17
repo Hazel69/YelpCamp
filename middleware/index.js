@@ -14,6 +14,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
     if(req.isAuthenticated()) {
         return next(); //if logged in, go to requested page
     } else {
+        req.flash("error", "Please Log In First."); //pay attention, here is req not res
         res.redirect("/login"); //else go to login page
     }
     
@@ -26,12 +27,14 @@ middlewareObj.checkCampOwnership = function (req, res, next) {
     if(req.isAuthenticated()) {
         Campground.findById(req.params.id, function (err, foundCamp) {
             // body...
-            if(err) {
+            if(err || !foundCamp) {
+                req.flash("error", "Campground not found.");
                 res.redirect("back");
             } else {
                 if(foundCamp.author.id.equals(req.user._id)) {
                     next();
                 } else {
+                    req.flash("error","You do not have permission.");
                     res.redirect("back");
                 }
             }
@@ -39,6 +42,7 @@ middlewareObj.checkCampOwnership = function (req, res, next) {
         });
         
     } else {
+        req.flash("error", "Please Log In First");
         res.redirect("back");
     }
 }
@@ -47,17 +51,20 @@ middlewareObj.checkCampOwnership = function (req, res, next) {
 middlewareObj.checkCommentOwnerShip = function(req, res, next) {
     if(req.isAuthenticated()) {
         Comment.findById(req.params.comment_id, function(err, foundComment) {
-            if(err) {
+            if(err || !foundComment) {
+                req.flash("error", "Campground not found.");
                 res.redirect("back");
             } else {
                 if(foundComment.author.id.equals(req.user._id)) {
                     next();
                 } else {
+                     req.flash("error", "You don't have permission to do that");
                     res.redirect("back");
                 }
             }
         })
-    } else {
+    } else { 
+        req.flash("error", "Please Log In First");
         res.redirect("back");
     }
 }
