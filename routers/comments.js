@@ -1,9 +1,9 @@
-var express = require("express");
+const express = require("express");
 //routes in this file need to use the id of campgrouds;
-var router = express.Router({mergeParams: true});
-var Campground = require("../models/campground");
-var Comment = require("../models/comment");
-var middleware = require("../middleware");
+const router = express.Router({mergeParams: true});
+const Campground = require("../models/campground");
+const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
 
 

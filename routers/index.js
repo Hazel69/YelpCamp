@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var User = require("../models/user");
-var passport = require("passport");
+const express = require("express");
+const router = express.Router();
+const User = require("../models/user");
+const passport = require("passport");
 
 router.get("/", function(req, res) {
     res.render("landing");
@@ -39,7 +39,7 @@ router.post("/login", passport.authenticate("local",
         failureRedirect:"/login"
     }), 
     function(req, res) {
-        req.flash("success","Success.");
+            req.flash("success","Success.");
 });
 
 //log out

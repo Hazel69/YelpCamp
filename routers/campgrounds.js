@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var Campground = require("../models/campground");
-var middleware = require("../middleware/index");
+const express = require("express");
+const router = express.Router();
+const Campground = require("../models/campground");
+const middleware = require("../middleware/index");
 
 //show all the campgrounds
 router.get("/", function (req, res) {
@@ -17,14 +17,14 @@ router.get("/", function (req, res) {
 
 //create new campground when logged in
 router.post("/", middleware.isLoggedIn, function(req, res) {
-    var name = req.body.name;
-    var image = req.body.image;
-    var desc = req.body.desc;
-    var author = {
+    const name = req.body.name;
+    const image = req.body.image;
+    const desc = req.body.desc;
+    const author = {
         id: req.user._id,
         username: req.user.username
     }
-    var newCampground = {name: name, image: image, desc: desc, author: author};
+    const newCampground = {name: name, image: image, desc: desc, author: author};
    Campground.create(newCampground, function(err, newCampground) {
        if(err) {
            console.log(err);

@@ -1,4 +1,4 @@
-var express     = require("express"),
+const express     = require("express"),
     session     = require("express-session"),
     app         = express(),
     bodyParser  = require("body-parser"),
@@ -13,11 +13,22 @@ var express     = require("express"),
     flash = require("connect-flash"); 
     
 //requiring routes
-var indexRoutes = require("./routers/index"),
+const indexRoutes = require("./routers/index"),
     campgroundRoutes = require("./routers/campgrounds"),
     commentRoutes = require("./routers/comments");
 
-mongoose.connect("mongodb://localhost/yummy", { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost/yummy", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://sm123:lsm0117kkk@yelpcampcluster-br4gx.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
+//connect to mongo altas
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://sm123:<password>@yelpcampcluster-br4gx.mongodb.net/test?retryWrites=true";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
 //set the view engine
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended: true}));
