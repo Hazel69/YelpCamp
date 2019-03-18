@@ -9,7 +9,6 @@ const express     = require("express"),
     Comment     = require("./models/comment"),
     User        = require("./models/user"),
     methodOverride = require("method-override"), //used for put and delete request
-    port = 8888,
     flash = require("connect-flash"); 
     
 //requiring routes
@@ -84,6 +83,6 @@ app.use("/campgrounds/:id/comments",commentRoutes);
 
 
 
-app.listen(8888, function() {
-    console.log("The yelp server has started");
+app.listen(process.env.PORT, process.env.IP, function(){
+   console.log("The YelpCamp Server Has Started!");
 });
